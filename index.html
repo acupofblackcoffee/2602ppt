@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>数字平台驱动的制度同型化 - 学术汇报</title>
+  <title>数字平台招聘实践的制度同形</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&family=Noto+Serif+SC:wght@700&family=Roboto+Mono:wght@700&display=swap');
-
     :root {
       --primary: #5B4B8A;
       --secondary: #8B7BA8;
@@ -21,25 +19,22 @@
       --slide-width: 1920px;
       --slide-height: 1080px;
       
-      /* Slide 4 specific brand colors */
+      /* ブランドカラー */
       --mynavi-blue: #0073BB;
       --rikunabi-red: #E60012;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* 基本フォントをSimHeiに設定 */
     body {
       background-color: #333;
       overflow: hidden;
-      font-family: 'Noto Sans SC', sans-serif;
+      font-family: 'SimHei', '黑体', 'Microsoft YaHei', sans-serif;
       color: var(--text-dark);
     }
 
-    /* 响应式缩放容器 */
+    /* プレゼンテーションコンテナ */
     #presentation-container {
       width: var(--slide-width);
       height: var(--slide-height);
@@ -60,12 +55,9 @@
       background: var(--bg-white);
     }
 
-    .slide.active {
-      display: flex;
-      flex-direction: column;
-    }
+    .slide.active { display: flex; flex-direction: column; }
 
-    /* 通用组件 */
+    /* 汎用コンポーネント */
     .slide-title {
       font-size: 48px;
       font-weight: 700;
@@ -74,7 +66,6 @@
       border-left: 12px solid var(--primary);
       padding-left: 30px;
     }
-
     .slide-subtitle {
       font-size: 28px;
       color: var(--text-mid);
@@ -82,1032 +73,447 @@
       margin-bottom: 40px;
       margin-left: 42px;
     }
-
     .slide-number {
       position: absolute;
       bottom: 40px;
-      right: 60px;
-      font-family: 'Roboto Mono', monospace;
+      right: 120px; /* しおりを避けるため少し左へ */
       font-size: 24px;
       color: var(--text-light);
     }
 
-    /* 图表通用样式 */
+    /* しおり（ナビゲーションタブ） */
+    .tabs-container {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 10;
+    }
+    .tab {
+      width: 40px;
+      height: 70px;
+      background: #CCCCCC;
+      border-radius: 12px 0 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #666;
+      transform: translateX(10px);
+      transition: 0.3s ease;
+    }
+    .tab.active {
+      width: 50px;
+      background: var(--primary);
+      color: white;
+      transform: translateX(0);
+    }
+
+    /* SVGグラフコンテナ */
     .chart-container {
       flex: 1;
       background: var(--bg-light);
       border-radius: 8px;
-      padding: 40px;
+      padding: 30px;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
       overflow: hidden;
     }
+    .chart { width: 100%; height: 100%; max-width: 100%; max-height: 100%; }
 
-    .chart {
-      width: 100%;
-      height: 100%;
-      max-width: 100%;
-      max-height: 100%;
-    }
+    /* --- Slide 1: Title --- */
+    #slide-01 { justify-content: center; align-items: center; text-align: center; padding: 0; }
+    .gradient-bg { position: absolute; top: 0; width: 100%; height: 25%; background: linear-gradient(180deg, var(--primary) 0%, rgba(91,75,138,0) 100%); }
+    #slide-01 .main-title { font-size: 84px; font-weight: 700; margin-bottom: 40px; z-index: 1; margin-top: 100px; }
+    #slide-01 .subtitle { font-size: 42px; color: var(--text-mid); margin-bottom: 20px; z-index: 1;}
+    #slide-01 .metadata { position: absolute; bottom: 80px; width: 100%; font-size: 28px; color: var(--text-mid); display: flex; justify-content: center; gap: 80px; }
 
-    /* Slide 1: Title Page */
-    #slide-01 {
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0;
-    }
+    /* --- Slide 2: Background --- */
+    .huge-number-container { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .huge-number { font-size: 220px; font-weight: bold; color: var(--primary); line-height: 1; }
+    .huge-number-sub { font-size: 36px; color: var(--text-mid); margin-top: 20px; }
+    .core-questions { background: var(--bg-light); padding: 40px 60px; border-radius: 12px; border-left: 8px solid var(--warning); margin-top: 40px;}
+    .core-question-text { font-size: 40px; font-weight: bold; color: var(--text-dark); margin-bottom: 20px; line-height: 1.4; }
 
-    .gradient-bg {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      height: 25%;
-      background: linear-gradient(180deg, var(--primary) 0%, rgba(91,75,138,0) 100%);
-    }
+    /* --- Slide 3: Theory & Method --- */
+    .split-layout { display: flex; flex: 1; gap: 40px; }
+    .split-left { flex: 1; display: flex; align-items: center; justify-content: center; }
+    .split-right { flex: 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 20px; }
+    .grid-item { background: var(--bg-light); border-radius: 8px; padding: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border: 1px solid var(--border); }
+    .grid-icon { font-size: 54px; margin-bottom: 15px; }
+    .grid-title { font-size: 26px; font-weight: bold; margin-bottom: 10px; color: var(--primary); }
+    .grid-detail { font-size: 20px; color: var(--text-mid); line-height: 1.4; }
 
-    #slide-01 .title-section {
-      z-index: 1;
-      margin-top: 100px;
-    }
+    /* --- Slide 4: Discovery 1 (Coercive) --- */
+    .vertical-split { display: flex; flex-direction: column; flex: 1; gap: 20px; }
+    .jaccard-box { flex: 1.2; background: var(--bg-light); border-radius: 8px; padding: 20px; display: flex; justify-content: center;}
+    .openes-box { flex: 0.8; background: var(--bg-light); border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;}
+    .standard-boxes { display: flex; gap: 30px; margin-bottom: 20px; width: 100%; justify-content: center;}
+    .s-box { padding: 20px; border-radius: 8px; border: 3px solid var(--primary); text-align: center; font-size: 24px; font-weight: bold; width: 350px;}
 
-    #slide-01 .main-title {
-      font-family: 'Noto Serif SC', serif;
-      font-size: 72px;
-      font-weight: 700;
-      margin-bottom: 40px;
-    }
+    /* --- Slide 6: Discovery 3 (Normative) --- */
+    .normative-right { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-left: 60px; }
+    .normative-highlight { font-size: 42px; font-weight: bold; color: var(--primary); margin-bottom: 50px; border-bottom: 2px solid var(--primary); padding-bottom: 10px; display: inline-block;}
+    .evolution-list { list-style: none; }
+    .evolution-list li { font-size: 32px; margin-bottom: 30px; color: var(--text-dark); display: flex; align-items: center;}
+    .evolution-list li span { font-weight: bold; color: var(--warning); margin-right: 20px; width: 140px;}
 
-    #slide-01 .subtitle {
-      font-size: 42px;
-      color: var(--text-mid);
-      margin-bottom: 20px;
-    }
+    /* --- Slide 7: Results --- */
+    .results-top { display: flex; justify-content: space-around; align-items: flex-end; margin-top: 40px; margin-bottom: 20px; }
+    .result-group { text-align: center; }
+    .result-num { font-size: 140px; font-weight: bold; color: var(--primary); line-height: 1; }
+    .result-note { font-size: 22px; color: var(--text-mid); margin-top: 10px; }
+    .stat-proof { text-align: center; font-size: 24px; font-weight: bold; color: var(--warning); background: rgba(214,69,69,0.1); padding: 15px; border-radius: 8px; margin: 20px 100px 40px 100px; }
+    .word-freq-container { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+    .word-card { background: var(--bg-light); border: 2px solid var(--primary); padding: 20px 40px; border-radius: 8px; text-align: center; }
+    .word-card.hero { background: var(--primary); color: white; }
+    .w-title { font-size: 36px; font-weight: bold; margin-bottom: 10px; }
+    .w-val { font-size: 24px; }
 
-    #slide-01 .sub-subtitle {
-      font-size: 28px;
-      color: var(--secondary);
-      font-weight: 300;
-    }
+    /* --- Slide 8: Conclusion 1 --- */
+    .conclusion-hero { text-align: center; font-size: 42px; font-weight: bold; color: var(--primary); margin-bottom: 50px; }
+    .discovery-columns { flex: 1; display: flex; gap: 30px; margin-bottom: 20px; }
+    .disc-col { flex: 1; display: flex; flex-direction: column; background: var(--bg-light); border-radius: 12px; border: 2px solid var(--border); padding: 40px; align-items: center; text-align: center; }
+    .disc-num { font-size: 60px; font-weight: bold; color: var(--accent); margin-bottom: 20px; }
+    .disc-head { font-size: 32px; font-weight: bold; color: var(--primary); margin-bottom: 20px; }
+    .disc-item { font-size: 24px; color: var(--text-dark); line-height: 1.5; }
 
-    #slide-01 .metadata {
-      position: absolute;
-      bottom: 80px;
-      width: 100%;
-      font-size: 24px;
-      color: var(--text-mid);
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-    }
+    /* --- Slide 9: Conclusion 2 --- */
+    .c2-top { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
+    .c2-top-title { font-size: 32px; font-weight: bold; color: var(--text-mid); margin-bottom: 15px; }
+    .c2-arrows { display: flex; align-items: center; gap: 30px; font-size: 40px; font-weight: bold; color: var(--primary); background: var(--bg-light); padding: 20px 60px; border-radius: 12px; border: 2px solid var(--primary); }
+    .c2-bottom { display: flex; flex: 1; gap: 40px; }
+    .c2-box { flex: 1; border-radius: 12px; padding: 30px; border: 2px solid var(--border); display: flex; flex-direction: column; }
+    .c2-box-title { font-size: 28px; font-weight: bold; text-align: center; margin-bottom: 20px; }
+    .c2-final { text-align: center; font-size: 48px; font-weight: bold; color: var(--warning); margin-top: 30px; padding-top: 20px; border-top: 2px solid var(--border); }
 
-    /* Slide 2: Positioning */
-    .split-layout {
-      display: flex;
-      flex: 1;
-      align-items: center;
-    }
-    .layout-left {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      border-right: 1px solid var(--border);
-    }
-    .layout-right {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding-left: 100px;
-      gap: 40px;
-    }
-    .map-display {
-      font-size: 120px;
-      margin-bottom: 20px;
-    }
-    .keyword-item {
-      display: flex;
-      align-items: center;
-      font-size: 32px;
-      font-weight: 700;
-    }
-    .keyword-item::before {
-      content: "●";
-      color: var(--primary);
-      font-size: 40px;
-      margin-right: 25px;
-    }
+    .small-note { font-size: 18px; color: var(--text-light); text-align: center; margin-top: 10px; }
 
-    /* Slide 3: Stats */
-    #slide-03 .stats-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 100px;
-    }
+    /* コントロール＆エクスポート */
+    .controls { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; z-index: 100; }
+    .export-btn { position: fixed; bottom: 20px; right: 20px; z-index: 100; background: var(--warning); }
+    .btn { padding: 12px 24px; background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 18px; font-family: 'SimHei', sans-serif;}
+    .btn:hover { background: rgba(0,0,0,0.9); }
 
-    .stat-item {
-      text-align: center;
-    }
-
-    .stat-number {
-      font-family: 'Roboto Mono', monospace;
-      font-size: 120px;
-      font-weight: 700;
-      color: var(--primary);
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 28px;
-      color: var(--text-mid);
-      font-weight: 300;
-      margin-top: 10px;
-    }
-
-    #slide-03 .question {
-      text-align: center;
-      font-size: 32px;
-      font-style: italic;
-      color: var(--text-mid);
-      margin-bottom: 40px;
-    }
-
-    /* Slide 4: Platform Growth Chart - REVISED */
-    #slide-04 .slide-number {
-      bottom: 40px;
-      right: 60px;
-    }
-
-    /* Slide 5: Core Question */
-    .fullscreen-centered {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    .big-q {
-      font-size: 160px;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: -20px;
-    }
-    .main-q {
-      font-size: 56px;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 80px;
-      text-align: center;
-    }
-    .sub-qs {
-      align-self: flex-start;
-      margin-left: 15%;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-    .sub-q-item {
-      font-size: 32px;
-      display: flex;
-      align-items: center;
-    }
-    .sub-q-item::before {
-      content: "■";
-      color: var(--primary);
-      margin-right: 20px;
-    }
-
-    /* Slide 7: Evolution */
-    .comparison-table {
-      flex: 1;
-      display: flex;
-      align-items: stretch;
-      margin: 40px 0;
-    }
-    .comp-col {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 60px;
-    }
-    .comp-header {
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 40px;
-      text-align: center;
-    }
-    .comp-header.active { color: var(--primary); }
-    .comp-header.inactive { color: var(--text-mid); }
-    .comp-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-    .comp-list li {
-      font-size: 24px;
-      color: var(--text-mid);
-      text-align: center;
-    }
-    .comp-list li b { color: var(--primary); }
-    .comp-divider {
-      width: 1px;
-      background: var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .big-arrow {
-      font-size: 60px;
-      color: var(--primary);
-      background: white;
-      padding: 10px;
-    }
-
-    /* Slide 8: Data Sources */
-    .grid-container {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 2px;
-      background: var(--border);
-      margin: 20px 0;
-    }
-    .grid-item {
-      background: white;
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-    .grid-icon { font-size: 64px; margin-bottom: 20px; }
-    .grid-title { font-size: 28px; font-weight: 700; margin-bottom: 15px; }
-    .grid-detail { font-size: 20px; color: var(--text-light); }
-
-    /* Slide 11: OpenES */
-    .stacked-boxes {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 25px;
-    }
-    .standard-box {
-      width: 700px;
-      height: 140px;
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-    .box-1 { border: 3px solid var(--primary); }
-    .box-2 { border: 3px solid var(--secondary); }
-    .box-3 { border: 3px solid var(--accent); }
-    .box-label { font-size: 28px; font-weight: 700; }
-    .box-size { font-size: 18px; color: var(--text-light); position: absolute; right: 20px; bottom: 10px; }
-    .result-emphasis { font-size: 36px; font-weight: 700; color: var(--primary); margin-top: 50px; text-align: center; }
-
-    /* Slide 13: Hierarchy */
-    .hierarchy-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .tier-1 { font-size: 96px; font-weight: 700; color: var(--primary); margin-bottom: 5px; }
-    .tier-stats { font-size: 22px; color: var(--text-light); margin-bottom: 40px; }
-    .tier-2 { font-size: 56px; color: var(--secondary); display: flex; gap: 80px; margin-bottom: 40px; }
-    .tier-3 { font-size: 36px; color: var(--accent); display: flex; gap: 60px; }
-    .similarity-box { position: absolute; bottom: 100px; right: 100px; text-align: right; }
-    .similarity-val { font-family: 'Roboto Mono', monospace; font-size: 84px; font-weight: 700; color: var(--primary); line-height: 1; }
-    .similarity-label { font-size: 22px; color: var(--text-mid); }
-
-    /* Slide 15: Pie Chart */
-    .chart-row {
-      display: flex;
-      flex: 1;
-      align-items: center;
-      gap: 100px;
-    }
-    .pie-chart-box { flex: 1; display: flex; justify-content: center; }
-    .pie-chart { width: 500px; height: 500px; }
-    .annotation-list { flex: 1; }
-    .list-heading { font-size: 32px; font-weight: 700; margin-bottom: 30px; }
-    .annotation-list ul { list-style: none; }
-    .annotation-list li { font-size: 26px; margin-bottom: 20px; color: var(--text-mid); display: flex; align-items: center; }
-    .annotation-list li::before { content: "·"; font-weight: bold; margin-right: 15px; color: var(--primary); }
-    .bottom-note{font-size:26px;}
-
-    /* Slide 17: Pyramid */
-    .pyramid-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .pyramid { width: 1000px; display: flex; flex-direction: column; align-items: center; }
-    .layer { position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; }
-    .layer-1 { width: 300px; height: 200px; background: var(--primary); clip-path: polygon(50% 0%, 0% 100%, 100% 100%); padding-top: 60px; }
-    .layer-2 { width: 650px; height: 220px; background: var(--secondary); clip-path: polygon(23% 0%, 77% 0%, 100% 100%, 0% 100%); margin-top: 5px; }
-    .layer-3 { width: 1000px; height: 240px; background: var(--accent); clip-path: polygon(17.5% 0%, 82.5% 0%, 100% 100%, 0% 100%); margin-top: 5px; }
-    .layer .main { font-size: 32px; font-weight: 700; }
-    .layer .eng { font-size: 22px; opacity: 0.7; margin: 5px 0; }
-    .layer .sub { font-size: 20px; opacity: 0.9; }
-
-    /* Slide 18: Discovery Columns - ENHANCED */
-    .discovery-columns { 
-      flex: 1; 
-      display: flex; 
-      gap: 30px; 
-      margin: 40px 0;
-      align-items: stretch;
-    }
-    .disc-col { 
-      flex: 1; 
-      display: flex; 
-      flex-direction: column; 
-      background: var(--bg-white);
-      border-radius: 12px;
-      border: 2px solid var(--border);
-      padding: 30px; 
-      transition: box-shadow 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    .disc-col:hover {
-      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-    }
-    .disc-icon { 
-      font-size: 40px; 
-      margin-bottom: 20px; 
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 60px;
-    }
-    .disc-head { 
-      font-size: 26px; 
-      font-weight: 700; 
-      margin-bottom: 20px; 
-      color: var(--primary);
-      text-align: center;
-      min-height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .disc-content-box {
-      flex: 1;
-      background: var(--bg-light);
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .disc-item {
-      font-size: 20px;
-      color: var(--text-dark);
-      display: flex;
-      align-items: flex-start;
-      line-height: 1.5;
-    }
-    .disc-item::before {
-      content: "•";
-      color: var(--primary);
-      margin-right: 10px;
-      font-weight: bold;
-    }
-    .disc-note {
-      font-size: 18px;
-      font-style: italic;
-      color: var(--text-light);
-      text-align: center;
-      border-top: 1px solid var(--border);
-      padding-top: 15px;
-    }
-    .disc-timeline-mini {
-      height: 10px;
-      background: var(--border);
-      border-radius: 5px;
-      position: relative;
-      margin: 20px 0;
-    }
-    .disc-timeline-bar {
-      height: 100%;
-      background: var(--primary);
-      border-radius: 5px;
-    }
-
+    /* --- PDF印刷用メディアクエリ --- */
     @media print {
-      body { background: white; overflow: visible; }
-      #presentation-container { position: static; transform: none !important; box-shadow: none; width: 100%; height: auto; }
-      .slide { display: flex !important; page-break-after: always; border: 1px solid #eee; margin-bottom: 20px; }
-      .controls { display: none; }
+      @page { size: 1920px 1080px landscape; margin: 0; }
+      body { background: white; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      #presentation-container { position: relative; width: 1920px; height: auto; transform: none !important; box-shadow: none; left: 0; top: 0; }
+      .slide { display: flex !important; page-break-after: always; height: 1080px; position: relative; overflow: hidden; page-break-inside: avoid; }
+      .controls, .export-btn { display: none !important; }
+      /* PDF出力時はタブを非表示にしても良いですが、デザインの一部として残します */
     }
-
-    /* Navigation Controls */
-    .controls {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 20px;
-      z-index: 100;
-    }
-    .btn {
-      padding: 10px 20px;
-      background: rgba(0,0,0,0.5);
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    .btn:hover { background: rgba(0,0,0,0.8); }
   </style>
 </head>
 <body>
 
   <div id="presentation-container">
     
-    <!-- Slide 1: Title Page -->
     <div class="slide active" id="slide-01">
       <div class="gradient-bg"></div>
-      <div class="slide-content">
-        <div class="title-section">
-          <h1 class="main-title">数字平台驱动的制度同型化</h1>
-          <h2 class="subtitle">日本应届生招聘市场的实证研究</h2>
-          <p class="sub-subtitle">基于26年纵向数据的实证分析</p>
-        </div>
-        <div class="metadata">
-          <span class="presenter">清水浩平</span>
-          <span class="institution">南开大学 社会学院</span>
-          <span class="date">2025年2月</span>
-        </div>
+      <div class="title-section">
+        <h1 class="main-title">数字平台招聘实践的制度同形</h1>
+        <h2 class="subtitle">基于日本应届毕业生招聘制度的演化过程分析</h2>
+      </div>
+      <div class="metadata">
+        <span class="presenter">汇报人：清水浩平</span>
+        <span class="institution">南开大学 社会学院</span>
+        <span class="date">2026年3月</span>
       </div>
     </div>
 
-    <!-- Slide 2: Positioning -->
     <div class="slide" id="slide-02">
-      <h2 class="slide-title">研究背景与定位</h2>
-      <p class="slide-subtitle">问题的提出：招聘市场的结构性变迁</p>
-      <div class="split-layout">
-        <div class="layout-left">
-          <div class="map-display">🇯🇵 🇨🇳 🇰🇷</div>
-          <p style="font-size: 24px; color: var(--text-light);">东亚应届生招聘体系</p>
-        </div>
-        <div class="layout-right">
-          <div class="keyword-item">数字平台</div>
-          <div class="keyword-item">制度同型化</div>
-          <div class="keyword-item">新卒招聘市场</div>
-        </div>
+      <h2 class="slide-title">研究背景与问题</h2>
+      <div class="huge-number-container">
+        <div class="huge-number">98.6%</div>
+        <div class="huge-number-sub">学生平台使用率 (新卒就职率：95.8%)</div>
+      </div>
+      <div class="core-questions">
+        <div class="core-question-text">Q1. 以信息中介起家的数字平台，为什么变成了招聘规则的制定者？</div>
+        <div class="core-question-text" style="margin-bottom:0;">Q2. 它们是通过什么机制，让不同企业的招聘方式变得高度一致的？</div>
       </div>
       <div class="slide-number">2</div>
+      <div class="tabs-container">
+        <div class="tab active">1</div><div class="tab">2</div><div class="tab">3</div><div class="tab">4</div><div class="tab">5</div><div class="tab">6</div><div class="tab">7</div><div class="tab">8</div>
+      </div>
     </div>
 
-    <!-- Slide 3: Impact Numbers -->
     <div class="slide" id="slide-03">
-      <div class="stats-container">
-        <div class="stat-item">
-          <div class="stat-number">8.9%</div>
-          <div class="stat-label">企业招聘话语相似度</div>
+      <h2 class="slide-title">理论与方法</h2>
+      <p class="slide-subtitle">DiMaggio & Powell的三种同型化机制与多源数据验证</p>
+      <div class="split-layout">
+        <div class="split-left">
+          <svg viewBox="0 0 800 650" style="width:100%; height:100%;">
+            <circle cx="300" cy="420" r="160" fill="var(--primary)" fill-opacity="0.15" stroke="var(--primary)" stroke-width="3" />
+            <text x="150" y="440" font-size="24" font-weight="700" fill="var(--primary)" text-anchor="end">强制性同型化</text>
+            <circle cx="500" cy="420" r="160" fill="var(--secondary)" fill-opacity="0.15" stroke="var(--secondary)" stroke-width="3" />
+            <text x="650" y="440" font-size="24" font-weight="700" fill="var(--secondary)" text-anchor="start">模仿性同型化</text>
+            <circle cx="400" cy="220" r="160" fill="var(--accent)" fill-opacity="0.15" stroke="var(--accent)" stroke-width="3" />
+            <text x="400" y="40" font-size="24" font-weight="700" fill="var(--primary)" text-anchor="middle">规范性同型化</text>
+            <text x="400" y="350" font-size="36" font-weight="700" fill="var(--text-dark)" text-anchor="middle">组织趋同</text>
+          </svg>
         </div>
-        <div class="stat-item">
-          <div class="stat-number">98.6%</div>
-          <div class="stat-label">学生使用平台比率</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">30,000社</div>
-          <div class="stat-label">平台掲载企业数</div>
+        <div class="split-right">
+          <div class="grid-item">
+            <div class="grid-icon">📄</div>
+            <div class="grid-title">平台HTML档案</div>
+            <div class="grid-detail">2001-2026年<br>54个时点・66家企业</div>
+          </div>
+          <div class="grid-item">
+            <div class="grid-icon">📚</div>
+            <div class="grid-title">就活书籍</div>
+            <div class="grid-detail">1995-2025年<br>约3000册</div>
+          </div>
+          <div class="grid-item">
+            <div class="grid-icon">📊</div>
+            <div class="grid-title">行业报告</div>
+            <div class="grid-detail">2004-2025年<br>纵跨22年</div>
+          </div>
+          <div class="grid-item">
+            <div class="grid-icon">🏢</div>
+            <div class="grid-title">企业话语</div>
+            <div class="grid-detail">2026届数据<br>66家企业文本解析</div>
+          </div>
         </div>
       </div>
-      <p class="question">这是偶然，还是结构性的力量？</p>
       <div class="slide-number">3</div>
+      <div class="tabs-container">
+        <div class="tab">1</div><div class="tab active">2</div><div class="tab">3</div><div class="tab">4</div><div class="tab">5</div><div class="tab">6</div><div class="tab">7</div><div class="tab">8</div>
+      </div>
     </div>
 
-
-    
-    <!-- Slide 4: Platform Growth Chart - COLOR UPDATED: Mynavi Blue, Rikunabi Red -->
     <div class="slide" id="slide-04">
-      <h2 class="slide-title">平台市场支配地位的确立</h2>
-      <p class="slide-subtitle">Rikunabi / Mynavi 掲载企业数推移 (2009-2025)</p>
-      <div class="chart-container">
-        <svg class="chart" viewBox="0 0 1600 700">
-          <!-- Phase Background Rectangles -->
-          <rect x="100" y="50" width="831.25" height="550" fill="rgba(0,0,0,0.03)" />
-          <text x="515" y="80" font-size="16" fill="#666666" text-anchor="middle">① 共同成长期</text>
-          
-          <rect x="931.25" y="50" width="87.5" height="550" fill="rgba(214,69,69,0.08)" />
-          <text x="975" y="80" font-size="16" font-weight="700" fill="#D64545" text-anchor="middle">② 危机</text>
-          
-          <rect x="1018.75" y="50" width="481.25" height="550" fill="rgba(0,0,0,0.03)" />
-          <text x="1259" y="80" font-size="16" fill="#666666" text-anchor="middle">③ 市场分化期</text>
-
-          <!-- Grid lines -->
-          <line x1="100" y1="528" x2="1500" y2="528" stroke="#EEEEEE" stroke-width="1" />
-          <line x1="100" y1="457" x2="1500" y2="457" stroke="#EEEEEE" stroke-width="1" />
-          <line x1="100" y1="385" x2="1500" y2="385" stroke="#EEEEEE" stroke-width="1" />
-          <line x1="100" y1="314" x2="1500" y2="314" stroke="#EEEEEE" stroke-width="1" />
-          <line x1="100" y1="242" x2="1500" y2="242" stroke="#EEEEEE" stroke-width="1" />
-          <line x1="100" y1="171" x2="1500" y2="171" stroke="#EEEEEE" stroke-width="1" />
-          <line x1="100" y1="100" x2="1500" y2="100" stroke="#EEEEEE" stroke-width="1" />
-
-          <!-- Axes -->
-          <line x1="100" y1="600" x2="1500" y2="600" stroke="#2D2D2D" stroke-width="2" />
-          <line x1="100" y1="50" x2="100" y2="600" stroke="#2D2D2D" stroke-width="2" />
-          <text x="50" y="325" font-size="18" fill="#2D2D2D" transform="rotate(-90, 50, 325)" text-anchor="middle">掲载企业数</text>
-
-          <!-- Y axis labels -->
-          <text x="90" y="605" font-size="16" fill="#666666" text-anchor="end">0</text>
-          <text x="90" y="533" font-size="16" fill="#666666" text-anchor="end">5k</text>
-          <text x="90" y="462" font-size="16" fill="#666666" text-anchor="end">10k</text>
-          <text x="90" y="390" font-size="16" fill="#666666" text-anchor="end">15k</text>
-          <text x="90" y="319" font-size="16" fill="#666666" text-anchor="end">20k</text>
-          <text x="90" y="247" font-size="16" fill="#666666" text-anchor="end">25k</text>
-          <text x="90" y="176" font-size="16" fill="#666666" text-anchor="end">30k</text>
-          <text x="90" y="105" font-size="16" fill="#666666" text-anchor="end">35k</text>
-
-          <!-- X axis labels -->
-          <text x="100" y="630" font-size="16" fill="#666666" text-anchor="middle">2009</text>
-          <text x="275" y="630" font-size="16" fill="#666666" text-anchor="middle">2011</text>
-          <text x="450" y="630" font-size="16" fill="#666666" text-anchor="middle">2013</text>
-          <text x="625" y="630" font-size="16" fill="#666666" text-anchor="middle">2015</text>
-          <text x="800" y="630" font-size="16" fill="#666666" text-anchor="middle">2017</text>
-          <text x="975" y="630" font-size="16" fill="#666666" text-anchor="middle">2019</text>
-          <text x="1150" y="630" font-size="16" fill="#666666" text-anchor="middle">2021</text>
-          <text x="1325" y="630" font-size="16" fill="#666666" text-anchor="middle">2023</text>
-          <text x="1500" y="630" font-size="16" fill="#666666" text-anchor="middle">2025</text>
-
-          <!-- 2019 Critical Line -->
-          <line x1="975" y1="50" x2="975" y2="600" stroke="#D64545" stroke-width="3" stroke-dasharray="8,5" />
-          <text x="975" y="40" font-size="20" font-weight="700" fill="#D64545" text-anchor="middle">2019年数据丑闻</text>
-
-          <!-- Rikunabi Data Line (RED) -->
-          <polyline points="
-            100,477 187,485 275,495 362,463 450,448 537,488 625,437 712,398 800,265 887,203 975,265 1062,150 1150,253 1237,433 1325,365 1412,301 1500,400" 
-            fill="none" stroke="var(--rikunabi-red)" stroke-width="4" />
-          
-          <!-- Mynavi Data Line (BLUE) -->
-          <polyline points="
-            100,488 187,494 275,529 362,532 450,517 537,489 625,423 712,357 800,348 887,300 975,265 1062,253 1150,227 1237,244 1325,219 1412,192 1500,175" 
-            fill="none" stroke="var(--mynavi-blue)" stroke-width="4" />
-
-          <!-- Key Data Markers -->
-          <circle cx="887.5" cy="203" r="7" fill="var(--rikunabi-red)" />
-          <text x="887" y="190" font-size="16" fill="var(--rikunabi-red)" text-anchor="middle">27,755社</text>
-
-          <circle cx="1237.5" cy="433" r="9" fill="none" stroke="var(--rikunabi-red)" stroke-width="2" />
-          <text x="1225" y="415" font-size="16" font-weight="700" fill="var(--rikunabi-red)" text-anchor="end">↓ 锐减至11,673社</text>
-
-          <circle cx="1500" cy="175" r="7" fill="var(--mynavi-blue)" />
-          <text x="1490" y="160" font-size="16" font-weight="700" fill="var(--mynavi-blue)" text-anchor="end">29,694社</text>
-
-          <!-- Legend -->
-          <rect x="1350" y="90" width="130" height="70" fill="white" fill-opacity="0.9" stroke="#EEEEEE" />
-          <line x1="1360" y1="115" x2="1385" y2="115" stroke="var(--mynavi-blue)" stroke-width="4" />
-          <text x="1395" y="120" font-size="18" font-weight="700" fill="var(--mynavi-blue)">Mynavi</text>
-          <line x1="1360" y1="145" x2="1385" y2="145" stroke="var(--rikunabi-red)" stroke-width="4" />
-          <text x="1395" y="150" font-size="18" font-weight="700" fill="var(--rikunabi-red)">Rikunabi</text>
-        </svg>
+      <h2 class="slide-title">发现一：数字强制的同型化</h2>
+      <p class="slide-subtitle">技术标准的统一与通用报名表（OpenES）的架构约束</p>
+      <div class="vertical-split">
+        <div class="jaccard-box">
+          <svg viewBox="0 0 1600 350" style="width:100%; height:100%;">
+            <text x="50" y="40" font-size="20" fill="var(--text-mid)">Jaccard系数 1.0</text>
+            <text x="50" y="280" font-size="20" fill="var(--text-mid)">0.0</text>
+            <line x1="180" y1="35" x2="1500" y2="35" stroke="var(--border)" stroke-width="2" />
+            <line x1="180" y1="275" x2="1500" y2="275" stroke="var(--border)" stroke-width="2" />
+            <text x="180" y="320" font-size="20" fill="var(--text-mid)" text-anchor="middle">2001</text>
+            <text x="800" y="320" font-size="20" font-weight="bold" fill="var(--primary)" text-anchor="middle">2012 功能完全趋同</text>
+            <text x="1500" y="320" font-size="20" fill="var(--text-mid)" text-anchor="middle">2026</text>
+            <polyline points="180,275 350,220 500,120 800,35 1200,60 1500,50" fill="none" stroke="var(--primary)" stroke-width="5" stroke-linejoin="round" />
+            <circle cx="800" cy="35" r="15" fill="none" stroke="var(--warning)" stroke-width="4" />
+            <circle cx="800" cy="35" r="6" fill="var(--primary)" />
+          </svg>
+        </div>
+        <div class="openes-box">
+          <h3 style="font-size: 28px; margin-bottom: 20px; color:var(--text-dark);">共通报名表 (OpenES / My CareerBox) 的结构锁定</h3>
+          <div class="standard-boxes">
+            <div class="s-box">自我PR<br><span style="font-size:18px; font-weight:normal;">300-400字</span></div>
+            <div class="s-box">学生时代努力的事<br><span style="font-size:18px; font-weight:normal;">300-400字</span></div>
+            <div class="s-box">志望动机<br><span style="font-size:18px; font-weight:normal;">300-400字</span></div>
+          </div>
+          <div style="font-size: 32px; font-weight: bold; color: var(--warning);">→ 结果：企业的评估维度被技术架构强制统一</div>
+        </div>
       </div>
       <div class="slide-number">4</div>
+      <div class="tabs-container">
+        <div class="tab">1</div><div class="tab">2</div><div class="tab active">3</div><div class="tab">4</div><div class="tab">5</div><div class="tab">6</div><div class="tab">7</div><div class="tab">8</div>
+      </div>
     </div>
 
-    <!-- Slide 5: Core Question -->
     <div class="slide" id="slide-05">
-      <div class="fullscreen-centered">
-        <div class="big-q">?</div>
-        <h1 class="main-q">数字平台如何重构日本应届生招聘市场？</h1>
-        <div class="sub-qs">
-          <div class="sub-q-item">技术如何约束企业行为？</div>
-          <div class="sub-q-item">模仿如何加速同质化？</div>
-          <div class="sub-q-item">谁定义了“理想人才”？</div>
-        </div>
+      <h2 class="slide-title">发现二：数字模仿的同型化</h2>
+      <p class="slide-subtitle">模仿的加速：从延迟模仿到同步采用</p>
+      <div class="chart-container" style="flex-direction: column; justify-content: center; gap: 80px;">
+        <svg width="1200" height="400" viewBox="0 0 1200 400">
+          <text x="0" y="50" font-size="26" font-weight="bold" fill="var(--text-dark)">排名功能 (2004-2009)</text>
+          <line x1="280" y1="42" x2="1000" y2="42" stroke="#eee" stroke-width="16" stroke-linecap="round" />
+          <circle cx="280" cy="42" r="16" fill="var(--mynavi-blue)" />
+          <circle cx="780" cy="42" r="16" fill="var(--rikunabi-red)" />
+          <text x="280" y="95" font-size="22" font-weight="bold" fill="var(--mynavi-blue)" text-anchor="middle">Mynavi: 2004</text>
+          <text x="780" y="95" font-size="22" font-weight="bold" fill="var(--rikunabi-red)" text-anchor="middle">Rikunabi: 2009</text>
+          <text x="530" y="30" font-size="36" font-weight="700" fill="var(--warning)" text-anchor="middle">滞后 5年</text>
+          
+          <text x="0" y="220" font-size="26" font-weight="bold" fill="var(--text-dark)">搜索强化 (2018)</text>
+          <line x1="880" y1="212" x2="880" y2="212" stroke="#eee" stroke-width="16" stroke-linecap="round" />
+          <circle cx="880" cy="212" r="20" fill="#666" />
+          <text x="880" y="265" font-size="22" font-weight="bold" fill="#666" text-anchor="middle">双方同步: 2018</text>
+          <text x="880" y="180" font-size="42" font-weight="700" fill="var(--primary)" text-anchor="middle">同步 (0年)</text>
+        </svg>
+        <p class="small-note">分析对象：2001-2026年 平台HTML档案 54个时点</p>
       </div>
       <div class="slide-number">5</div>
+      <div class="tabs-container">
+        <div class="tab">1</div><div class="tab">2</div><div class="tab">3</div><div class="tab active">4</div><div class="tab">5</div><div class="tab">6</div><div class="tab">7</div><div class="tab">8</div>
+      </div>
     </div>
 
-    <!-- Slide 6: Theory Framework -->
     <div class="slide" id="slide-06">
-      <h2 class="slide-title">理论框架：制度同型化</h2>
-      <p class="slide-subtitle">DiMaggio & Powell (1983) —— 三种机制的交织与复合</p>
-      <div class="chart-container">
-        <svg class="chart" viewBox="0 0 1000 650">
-          <circle cx="400" cy="380" r="180" fill="var(--primary)" fill-opacity="0.1" stroke="var(--primary)" stroke-width="3" />
-          <text x="200" y="400" font-size="24" font-weight="700" fill="var(--primary)" text-anchor="end">强制性同型化</text>
-          <text x="200" y="425" font-size="18" font-style="italic" fill="var(--primary)" text-anchor="end">Coercive</text>
-          <circle cx="600" cy="380" r="180" fill="var(--secondary)" fill-opacity="0.1" stroke="var(--secondary)" stroke-width="3" />
-          <text x="800" y="400" font-size="24" font-weight="700" fill="var(--secondary)" text-anchor="start">模仿性同型化</text>
-          <text x="800" y="425" font-size="18" font-style="italic" fill="var(--secondary)" text-anchor="start">Mimetic</text>
-          <circle cx="500" cy="220" r="180" fill="var(--accent)" fill-opacity="0.1" stroke="var(--accent)" stroke-width="3" />
-          <text x="500" y="30" font-size="24" font-weight="700" fill="var(--primary)" text-anchor="middle">规范性同型化</text>
-          <text x="500" y="55" font-size="18" font-style="italic" fill="var(--primary)" text-anchor="middle">Normative</text>
-          <text x="500" y="315" font-size="30" font-weight="700" fill="var(--text-dark)" text-anchor="middle">组织趋同</text>
-          <text x="500" y="280" font-size="40" fill="var(--primary)" text-anchor="middle">↑</text>
-        </svg>
+      <h2 class="slide-title">发现三：数字规范的同型化</h2>
+      <p class="slide-subtitle">“理想人才”的定义权转移与教典化过程</p>
+      <div class="split-layout">
+        <div class="split-left" style="flex-direction: column;">
+          <div class="pyramid" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+            <div class="layer layer-1" style="width: 250px; height: 160px; background: var(--primary); clip-path: polygon(50% 0%, 0% 100%, 100% 100%); padding-top: 50px; text-align: center; color: white;">
+              <p style="font-size:28px; font-weight:bold;">定义</p>
+              <p style="font-size:18px;">平台研究所</p>
+            </div>
+            <div class="layer layer-2" style="width: 450px; height: 140px; background: var(--secondary); clip-path: polygon(22% 0%, 78% 0%, 100% 100%, 0% 100%); margin-top: 5px; display:flex; flex-direction:column; justify-content:center; align-items:center; color: white;">
+              <p style="font-size:28px; font-weight:bold;">教典化</p>
+              <p style="font-size:18px;">书籍市场 · 辅导班</p>
+            </div>
+            <div class="layer layer-3" style="width: 650px; height: 160px; background: var(--accent); clip-path: polygon(15.5% 0%, 84.5% 0%, 100% 100%, 0% 100%); margin-top: 5px; display:flex; flex-direction:column; justify-content:center; align-items:center; color: white;">
+              <p style="font-size:28px; font-weight:bold;">渗透</p>
+              <p style="font-size:18px;">成千上万的企业用人单位 (HR)</p>
+            </div>
+          </div>
+          <p class="small-note" style="margin-top:40px;">数据来源：国立国会图书馆藏 约3000册<br>就职未来研究所·经团联报告 2004-2025年</p>
+        </div>
+        <div class="normative-right">
+          <div class="normative-highlight">基础技能书占书籍市场 95%以上</div>
+          <h3 style="font-size: 32px; margin-bottom: 20px;">平台主导下期望人才形象的变迁：</h3>
+          <ul class="evolution-list">
+            <li><span>2000年代：</span> 沟通能力 (Communication)</li>
+            <li><span>2010年代：</span> 主体性 (Proactiveness)</li>
+            <li><span>2020年代：</span> 课题解决能力 (Problem-solving)</li>
+          </ul>
+        </div>
       </div>
       <div class="slide-number">6</div>
+      <div class="tabs-container">
+        <div class="tab">1</div><div class="tab">2</div><div class="tab">3</div><div class="tab">4</div><div class="tab active">5</div><div class="tab">6</div><div class="tab">7</div><div class="tab">8</div>
+      </div>
     </div>
 
-    <!-- Slide 7: Evolution -->
     <div class="slide" id="slide-07">
-      <h2 class="slide-title">数字化转年的演进</h2>
-      <p class="slide-subtitle">从传统到数字的范式转换</p>
-      <div class="comparison-table">
-        <div class="comp-col">
-          <h3 class="comp-header inactive">传统同型化</h3>
-          <ul class="comp-list">
-            <li>缓慢 (数十年)</li>
-            <li>可见的规则</li>
-            <li>公共机构主导</li>
-          </ul>
+      <h2 class="slide-title">综合结果：企业实践的高度同型化</h2>
+      <p class="slide-subtitle">不同行业、不同规模的企业，最终“用同一种声音说话”</p>
+      
+      <div class="results-top">
+        <div class="result-group">
+          <div class="result-num">8.9%</div>
+          <div class="result-note">※排除泛用词汇后计算・TF-IDF余弦平均相似度</div>
         </div>
-        <div class="comp-divider">
-          <div class="big-arrow">→</div>
-        </div>
-        <div class="comp-col">
-          <h3 class="comp-header active">数字同型化</h3>
-          <ul class="comp-list">
-            <li>快速 (<b>15年</b>)</li>
-            <li>技术约束</li>
-            <li>私企平台主导</li>
-          </ul>
+        <div class="result-group">
+          <div class="result-num" style="color: var(--secondary);">59.7%</div>
+          <div class="result-note">※部分企业间最高相似度值</div>
         </div>
       </div>
+
+      <div class="stat-proof">
+        ※ Kruskal-Wallis检验・Mann-Whitney U检验：行业间差异不显著（p>0.05）<br>
+        → 证明同型化压力已经完全超越了行业边界
+      </div>
+
+      <div class="word-freq-container">
+        <div class="word-card hero">
+          <div class="w-title">经验</div>
+          <div class="w-val">103次 / 100%企业</div>
+        </div>
+        <div class="word-card">
+          <div class="w-title">人才</div>
+          <div class="w-val">87次</div>
+        </div>
+        <div class="word-card">
+          <div class="w-title">挑战</div>
+          <div class="w-val">64次</div>
+        </div>
+        <div class="word-card">
+          <div class="w-title">成长</div>
+          <div class="w-val">58次</div>
+        </div>
+      </div>
+      <p class="small-note" style="margin-top:30px;">数据来源：2026届66家企业招聘页面 形态素解析提取名词</p>
+
       <div class="slide-number">7</div>
+      <div class="tabs-container">
+        <div class="tab">1</div><div class="tab">2</div><div class="tab">3</div><div class="tab">4</div><div class="tab">5</div><div class="tab active">6</div><div class="tab">7</div><div class="tab">8</div>
+      </div>
     </div>
 
-    <!-- Slide 8: Research Methods -->
     <div class="slide" id="slide-08">
-      <h2 class="slide-title">研究方法：四个独立数据源</h2>
-      <div class="grid-container">
-        <div class="grid-item">
-          <div class="grid-icon">📄</div>
-          <div class="grid-title">平台HTML分析</div>
-          <div class="grid-detail">2001-2026年 / 54个时点</div>
+      <h2 class="slide-title">结论一：理论贡献</h2>
+      <div class="conclusion-hero">数字平台是主动重塑制度环境的“制度企业家”</div>
+      <div class="discovery-columns">
+        <div class="disc-col">
+          <div class="disc-num">01</div>
+          <div class="disc-head">制度性行动者概念的扩张</div>
+          <div class="disc-item">传统观点认为政府或行业协会主导规则。<br><br>本研究证明：私营平台通过技术架构，实质性地承担了新型制度主体的功能。</div>
         </div>
-        <div class="grid-item">
-          <div class="grid-icon">📚</div>
-          <div class="grid-title">就活书籍市场</div>
-          <div class="grid-detail">1995-2025年 / ~3000册</div>
+        <div class="disc-col">
+          <div class="disc-num">02</div>
+          <div class="disc-head">同型化速度的理论化</div>
+          <div class="disc-item">传统制度化通常是长达数十年的渐进过程。<br><br>在数字驱动下，仅用 <b>15年</b> 即完成了高度的深度制度化（指数级推进）。</div>
         </div>
-        <div class="grid-item">
-          <div class="grid-icon">📊</div>
-          <div class="grid-title">行业报告</div>
-          <div class="grid-detail">2004-2025年 / 22年</div>
-        </div>
-        <div class="grid-item">
-          <div class="grid-icon">🏢</div>
-          <div class="grid-title">企业话语分析</div>
-          <div class="grid-detail">2026届 / 66家企业</div>
+        <div class="disc-col">
+          <div class="disc-num">03</div>
+          <div class="disc-head">多层次机制的同步性</div>
+          <div class="disc-item">强制、模仿、规范三种机制并非线性递进。<br><br>它们通过技术中介<b>并行运行</b>，构成了互利共生的非线性复合强化效应。</div>
         </div>
       </div>
       <div class="slide-number">8</div>
+      <div class="tabs-container">
+        <div class="tab">1</div><div class="tab">2</div><div class="tab">3</div><div class="tab">4</div><div class="tab">5</div><div class="tab">6</div><div class="tab active">7</div><div class="tab">8</div>
+      </div>
     </div>
 
-    <!-- Slide 9: Timeline Integration -->
     <div class="slide" id="slide-09">
-      <h2 class="slide-title">时间序列整合：四个转折点</h2>
-      <div class="chart-container" style="padding-top: 100px;">
-        <svg class="chart" viewBox="0 0 1600 500">
-          <line x1="100" y1="250" x2="1500" y2="250" stroke="var(--text-mid)" stroke-width="2" />
-          <line x1="100" y1="240" x2="100" y2="260" stroke="var(--text-mid)" stroke-width="2" />
-          <text x="100" y="290" font-size="18" text-anchor="middle">2001</text>
-          <line x1="612" y1="100" x2="612" y2="400" stroke="var(--primary)" stroke-width="3" stroke-dasharray="5,5" />
-          <text x="612" y="80" font-size="18" fill="var(--primary)" text-anchor="middle" font-weight="700">2009年: 登录架构统一</text>
-          <line x1="804" y1="100" x2="804" y2="400" stroke="var(--primary)" stroke-width="3" stroke-dasharray="5,5" />
-          <text x="804" y="80" font-size="18" fill="var(--primary)" text-anchor="middle" font-weight="700">2012年: 功能完全趋同</text>
-          <line x1="868" y1="130" x2="868" y2="370" stroke="var(--primary)" stroke-width="3" stroke-dasharray="5,5" />
-          <text x="868" y="120" font-size="18" fill="var(--primary)" text-anchor="middle" font-weight="700">2013年: 设计同步变化</text>
-          <text x="1188" y="290" font-size="18" text-anchor="middle">2018</text>
-          <text x="1500" y="290" font-size="18" text-anchor="middle">2026</text>
-          <rect x="100" y="320" width="1400" height="30" fill="var(--accent)" rx="5" />
-          <text x="110" y="342" font-size="16" fill="white">HTML分析 (2001-2026)</text>
-          <rect x="100" y="360" width="1344" height="30" fill="#DDDDDD" rx="5" />
-          <text x="110" y="382" font-size="16" fill="var(--text-mid)">书籍市场 (1995-2025)</text>
-          <rect x="292" y="400" width="1152" height="30" fill="#DDDDDD" rx="5" />
-          <text x="302" y="422" font-size="16" fill="var(--text-mid)">行业报告 (2004-2025)</text>
-          <circle cx="1500" cy="455" r="15" fill="var(--primary)" />
-          <text x="1475" y="460" font-size="16" fill="var(--primary)" text-anchor="end">企业话语 (2026)</text>
-        </svg>
-      </div>
-      <div class="slide-number">9</div>
-    </div>
-
-    <!-- Slide 10: Jaccard Line Chart -->
-    <div class="slide" id="slide-10">
-      <h2 class="slide-title">技术标准化：导航结构的完全趋同</h2>
-      <p class="slide-subtitle">Jaccard系数变化 (2001-2026) —— 平台间功能模块重合度分析</p>
-      <div class="chart-container">
-        <svg class="chart" viewBox="0 0 1600 700">
-          <line x1="100" y1="100" x2="1500" y2="100" stroke="var(--border)" stroke-width="1" />
-          <line x1="100" y1="600" x2="1500" y2="600" stroke="var(--border)" stroke-width="1" />
-          <text x="50" y="105" font-size="20" fill="var(--text-mid)">1.0</text>
-          <text x="50" y="605" font-size="20" fill="var(--text-mid)">0.0</text>
-          <text x="100" y="650" font-size="20" fill="var(--text-mid)" text-anchor="middle">2001</text>
-          <text x="716" y="650" font-size="20" fill="var(--text-mid)" text-anchor="middle">2012</text>
-          <text x="1500" y="650" font-size="20" fill="var(--text-mid)" text-anchor="middle">2026</text>
-          <polyline points="100,600 380,550 548,450 604,350 716,100 940,150 1500,175" fill="none" stroke="var(--primary)" stroke-width="4" stroke-linejoin="round" />
-          <circle cx="716" cy="100" r="22" fill="none" stroke="var(--warning)" stroke-width="4" />
-          <circle cx="716" cy="100" r="8" fill="var(--primary)" />
-          <text x="745" y="105" font-size="26" font-weight="700" fill="var(--primary)">1.0 完全一致</text>
-        </svg>
-      </div>
-      <div class="slide-number">10</div>
-    </div>
-
-    <!-- Slide 11: OpenES Constraint -->
-    <div class="slide" id="slide-11">
-      <h2 class="slide-title">共通报名表的标准化</h2>
-      <p class="slide-subtitle">OpenES (2015) / My CareerBox (2021)</p>
-      <div class="stacked-boxes">
-        <div class="standard-box box-1">
-          <div class="box-label">自我PR</div>
-          <div class="box-size">300-400字</div>
-        </div>
-        <div class="standard-box box-2">
-          <div class="box-label">学生时代努力的事 (Gakuchika)</div>
-          <div class="box-size">300-400字</div>
-        </div>
-        <div class="standard-box box-3">
-          <div class="box-label">志望动机</div>
-          <div class="box-size">300-400字</div>
-        </div>
-        <div class="result-emphasis">结果：“经验” = 100%企业使用</div>
-      </div>
-      <div class="slide-number">11</div>
-    </div>
-
-    <!-- Slide 12: Time Lag -->
-    <div class="slide" id="slide-12">
-      <h2 class="slide-title">模仿加速：功能采用时间差的缩短</h2>
-      <div class="chart-container" style="flex-direction: column; gap: 60px;">
-        <svg width="1200" height="400" viewBox="0 0 1200 400">
-          <text x="0" y="50" font-size="22" fill="var(--text-dark)">排名功能 (2004-2009)</text>
-          <line x1="200" y1="42" x2="1000" y2="42" stroke="#eee" stroke-width="12" stroke-linecap="round" />
-          <circle cx="200" cy="42" r="12" fill="var(--primary)" />
-          <circle cx="700" cy="42" r="12" fill="var(--secondary)" />
-          <text x="200" y="85" font-size="18" text-anchor="middle">Mynavi: 2004</text>
-          <text x="700" y="85" font-size="18" text-anchor="middle">Rikunabi: 2009</text>
-          <text x="450" y="35" font-size="28" font-weight="700" fill="var(--warning)" text-anchor="middle">5年</text>
-          <text x="0" y="180" font-size="22" fill="var(--text-dark)">推荐信功能 (2006-2012)</text>
-          <line x1="300" y1="172" x2="1000" y2="172" stroke="#eee" stroke-width="12" stroke-linecap="round" />
-          <text x="500" y="165" font-size="28" fill="var(--warning)" text-anchor="middle">4-6年</text>
-          <text x="0" y="310" font-size="22" fill="var(--text-dark)">搜索强化 (2018)</text>
-          <line x1="800" y1="302" x2="800" y2="302" stroke="#eee" stroke-width="12" stroke-linecap="round" />
-          <circle cx="800" cy="302" r="16" fill="var(--primary)" />
-          <text x="800" y="345" font-size="18" text-anchor="middle">双方同步: 2018</text>
-          <text x="800" y="290" font-size="32" font-weight="700" fill="var(--primary)" text-anchor="middle">0年</text>
-        </svg>
-        <p style="font-size: 26px; font-style: italic; color: var(--text-mid);">→ 从延迟模仿到同步采用</p>
-      </div>
-      <div class="slide-number">12</div>
-    </div>
-
-    <!-- Slide 13: Discourse Hierarchy -->
-    <div class="slide" id="slide-13">
-      <h2 class="slide-title">企业话语的高度趋同</h2>
-      <div class="hierarchy-container">
-        <div class="tier-1">经验</div>
-        <div class="tier-stats">103次 / 100%企业</div>
-        <div class="tier-2">
-          <span>人才</span>
-          <span style="color: var(--border)">|</span>
-          <span>挑战</span>
-        </div>
-        <div class="tier-3">
-          <span>成长</span>
-          <span>社会</span>
-          <span>课题</span>
-        </div>
-        <div class="similarity-box">
-          <div class="similarity-val">8.9%</div>
-          <div class="similarity-label">平均文本相似度</div>
+      <h2 class="slide-title">结论二：制度权力的边界</h2>
+      
+      <div class="c2-top">
+        <div class="c2-top-title">技术与制度并非单向关系</div>
+        <div class="c2-arrows">
+          <span>数字平台</span>
+          <span>⟷</span>
+          <span>社会制度环境</span>
         </div>
       </div>
-      <div class="slide-number">13</div>
-    </div>
 
-    <!-- Slide 14: Web Test Bar Chart -->
-    <div class="slide" id="slide-14">
-      <h2 class="slide-title">网络测试的阶段性普及</h2>
-      <p class="slide-subtitle">创新扩散的S型曲线 —— 筛选技术的完全标准化</p>
-      <div class="chart-container">
-        <svg class="chart" viewBox="0 0 1200 650">
-          <line x1="150" y1="550" x2="1050" y2="550" stroke="var(--text-mid)" stroke-width="2" />
-          <line x1="150" y1="550" x2="150" y2="100" stroke="var(--text-mid)" stroke-width="2" />
-          <line x1="150" y1="467" x2="1050" y2="467" stroke="var(--border)" stroke-width="1" />
-          <line x1="150" y1="384" x2="1050" y2="384" stroke="var(--border)" stroke-width="1" />
-          <line x1="150" y1="301" x2="1050" y2="301" stroke="var(--border)" stroke-width="1" />
-          <line x1="150" y1="218" x2="1050" y2="218" stroke="var(--border)" stroke-width="1" />
-          <line x1="150" y1="135" x2="1050" y2="135" stroke="var(--border)" stroke-width="1" />
-          <text x="130" y="555" font-size="18" fill="var(--text-mid)" text-anchor="end">0%</text>
-          <text x="130" y="472" font-size="18" fill="var(--text-mid)" text-anchor="end">10%</text>
-          <text x="130" y="389" font-size="18" fill="var(--text-mid)" text-anchor="end">20%</text>
-          <text x="130" y="306" font-size="18" fill="var(--text-mid)" text-anchor="end">30%</text>
-          <text x="130" y="223" font-size="18" fill="var(--text-mid)" text-anchor="end">40%</text>
-          <text x="130" y="140" font-size="18" fill="var(--text-mid)" text-anchor="end">50%</text>
-          <rect x="275" y="309" width="150" height="241" fill="var(--accent)" />
-          <text x="350" y="295" font-size="28" font-weight="700" fill="var(--primary)" text-anchor="middle">29.1%</text>
-          <text x="350" y="585" font-size="22" text-anchor="middle">2016届</text>
-          <text x="350" y="615" font-size="18" fill="var(--text-light)" text-anchor="middle">创新者期</text>
-          <rect x="525" y="260" width="150" height="290" fill="var(--secondary)" />
-          <text x="600" y="245" font-size="28" font-weight="700" fill="var(--primary)" text-anchor="middle">~35%</text>
-          <text x="600" y="585" font-size="22" text-anchor="middle">2020届</text>
-          <rect x="775" y="148" width="150" height="402" fill="var(--primary)" />
-          <text x="850" y="130" font-size="28" font-weight="700" fill="var(--primary)" text-anchor="middle">48.5%</text>
-          <text x="850" y="585" font-size="22" text-anchor="middle">2024届</text>
-          <text x="850" y="615" font-size="18" fill="var(--text-light)" text-anchor="middle">标准化期</text>
-        </svg>
-      </div>
-      <div class="slide-number">14</div>
-    </div>
-
-    <!-- Slide 15: Pie Chart -->
-    <div class="slide" id="slide-15">
-      <h2 class="slide-title">就活书籍市场的标准化</h2>
-      <p class="slide-subtitle">1995-2025年 / 累计 ~3000 册图书内容分析</p>
-      <div class="chart-row">
-        <div class="pie-chart-box">
-          <svg viewBox="0 0 500 500" class="pie-chart">
-            <circle cx="250" cy="250" r="200" fill="#DDDDDD" />
-            <path d="M 250 250 L 250 50 A 200 200 0 1 1 188 60 Z" fill="var(--primary)" />
-            <circle cx="250" cy="250" r="100" fill="white" />
-            <text x="350" y="300" fill="white" font-size="42" font-weight="700" text-anchor="middle">95%</text>
-            <text x="210" y="80" fill="#666" font-size="24" font-weight="700" text-anchor="middle">5%</text>
+      <div class="c2-bottom">
+        <div class="c2-box">
+          <div class="c2-box-title" style="color: var(--rikunabi-red);">脆弱性：权力的崩塌</div>
+          <div style="font-size:24px; margin-bottom:15px; text-align:center;"><b>2019年：</b> 数据丑闻 (未经同意出售学生预测数据)</div>
+          <svg viewBox="0 0 500 200" style="width:100%; height:120px; background:var(--bg-light); border-radius:8px;">
+            <polyline points="50,20 200,40 350,160 450,180" fill="none" stroke="var(--rikunabi-red)" stroke-width="6" />
+            <circle cx="200" cy="40" r="8" fill="var(--rikunabi-red)" />
+            <circle cx="350" cy="160" r="8" fill="var(--rikunabi-red)" />
+            <text x="250" y="100" font-size="28" font-weight="bold" fill="var(--rikunabi-red)" text-anchor="middle">入驻企业数骤降 62.9%</text>
           </svg>
+          <div class="small-note" style="margin-top:20px; color:var(--text-dark);">→ 平台权力依赖社会承认，违反规范则承认被瞬间撤回</div>
         </div>
-        <div class="annotation-list">
-          <p class="list-heading">基础技能书 (95%) 包括：</p>
-          <ul>
-            <li>SPI 与 Web 测试对策</li>
-            <li>Entry Sheet (ES) 标准化写法</li>
-            <li>面试礼仪与固定技巧</li>
-            <li>自我分析 (自我挖掘) 模版化</li>
-          </ul>
-        </div>
-      </div>
-      <p class="bottom-note">→ 结论：学习并适配平台“模式”的需求占据绝对主导地位</p>
-      <div class="slide-number">15</div>
-    </div>
 
-    <!-- Slide 16: Publication Peak Area Chart -->
-    <div class="slide" id="slide-16">
-      <h2 class="slide-title">书籍出版高峰与制度确立</h2>
-      <p class="slide-subtitle">就活书籍出版数量的演变 (1995-2025)</p>
-      <div class="chart-container">
-        <svg class="chart" viewBox="0 0 1600 650">
-          <defs>
-            <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.4"/>
-              <stop offset="100%" stop-color="white" stop-opacity="0"/>
-            </linearGradient>
-          </defs>
-          <line x1="100" y1="50" x2="100" y2="550" stroke="var(--text-mid)" stroke-width="1" />
-          <line x1="100" y1="550" x2="1500" y2="550" stroke="var(--text-mid)" stroke-width="1" />
-          <path d="M 100 450 L 333 390 L 566 250 L 800 190 L 893 110 L 1033 150 L 1266 250 L 1500 350 V 550 H 100 Z" fill="url(#areaGrad)" />
-          <polyline points="100,450 333,390 566,250 800,190 893,110 1033,150 1266,250 1500,350" fill="none" stroke="var(--primary)" stroke-width="3" />
-          <line x1="893" y1="50" x2="893" y2="550" stroke="var(--warning)" stroke-width="2" stroke-dasharray="5,5" />
-          <text x="893" y="40" font-size="22" font-weight="700" fill="var(--warning)" text-anchor="middle">平台功能趋同期 (2012)</text>
-          <text x="566" y="220" font-size="18" fill="var(--text-dark)" text-anchor="middle">第一次高峰 (2005)</text>
-          <text x="1033" y="120" font-size="18" fill="var(--text-dark)" text-anchor="middle">第二次高峰 (2012)</text>
-          <text x="100" y="580" text-anchor="middle">1995</text>
-          <text x="333" y="580" text-anchor="middle">2000</text>
-          <text x="566" y="580" text-anchor="middle">2005</text>
-          <text x="800" y="580" text-anchor="middle">2010</text>
-          <text x="1033" y="580" text-anchor="middle">2015</text>
-          <text x="1266" y="580" text-anchor="middle">2020</text>
-          <text x="1500" y="580" text-anchor="middle">2025</text>
-        </svg>
-      </div>
-      <div class="slide-number">16</div>
-    </div>
-
-    <!-- Slide 17: Pyramid Diagram -->
-    <div class="slide" id="slide-17">
-      <h2 class="slide-title">规范形成的三层结构</h2>
-      <p class="slide-subtitle">制度同型化在招聘生态中的传导路径</p>
-      <div class="pyramid-container">
-        <div class="pyramid">
-          <div class="layer layer-1">
-            <p class="main">定义</p>
-            <p class="eng">Definition</p>
-            <p class="sub">平台研究所 / 行业巨头</p>
+        <div class="c2-box">
+          <div class="c2-box-title" style="color: var(--mynavi-blue);">强制力：国家制度的追认</div>
+          <div style="font-size:24px; margin-bottom:15px; text-align:center;"><b>2025年：</b> 政府正式承认经由实习的早期选考</div>
+          <div style="flex:1; display:flex; align-items:center; justify-content:center; background:var(--bg-light); border-radius:8px; flex-direction:column; padding:20px; text-align:center;">
+            <div style="font-size:32px; font-weight:bold; color:var(--primary); margin-bottom:15px;">平台主导的“事实标准”</div>
+            <div style="font-size:24px;">↓ 最终转化为 ↓</div>
+            <div style="font-size:32px; font-weight:bold; color:var(--text-dark); margin-top:15px;">国家层面的“官方制度”</div>
           </div>
-          <div class="layer layer-2">
-            <p class="main">教典化</p>
-            <p class="eng">Codification</p>
-            <p class="sub">书籍市场 · 社交媒体内容 · 辅导班</p>
-          </div>
-          <div class="layer layer-3">
-            <p class="main">渗透</p>
-            <p class="eng">Penetration</p>
-            <p class="sub">成千上万的企业用人单位 · 数十万求职学生</p>
-          </div>
+          <div class="small-note" style="margin-top:20px; color:var(--text-dark);">→ 平台推进10年以上的市场惯行，最终改写了官方规则</div>
         </div>
       </div>
-      <div class="slide-number">17</div>
-    </div>
 
-    <!-- Slide 18: Theoretical Discoveries -->
-    <div class="slide" id="slide-18">
-      <h2 class="slide-title">三个理论发现</h2>
-      <p class="slide-subtitle">本研究对制度理论的拓展与中国语境下的启示</p>
-      <div class="discovery-columns">
-        <div class="disc-col">
-          <div class="disc-icon">🏛️ → 📱</div>
-          <div class="disc-head">制度形成主体的转换</div>
-          <div class="disc-content-box">
-            <p class="disc-item"><b>传统观点:</b> 政府、行业协会或专业团体主导规则制定。</p>
-            <p style="text-align:center; color:var(--primary); font-size:24px;">↓</p>
-            <p class="disc-item"><b>数字时代:</b> 私营平台通过技术架构实现“准公共管理”。</p>
-          </div>
-          <p class="disc-note">制度企业家的新形态</p>
-        </div>
-        <div class="disc-col">
-          <div class="disc-icon">⏱️</div>
-          <div class="disc-head">同型化速度的加速度</div>
-          <div class="disc-content-box">
-            <p class="disc-item">传统制度化周期通常长达 <b> 渐进过程（数十年）</b>。</p>
-            <div class="disc-timeline-mini"><div class="disc-timeline-bar" style="width: 100%;"></div></div>
-            <p class="disc-item">数字驱动下仅用 <b>15年</b> 快速完成</p>
-            <div class="disc-timeline-mini"><div class="disc-timeline-bar" style="width: 30%;"></div></div>
-          </div>
-          <p class="disc-note">从线性到指数级推进</p>
-        </div>
-        <div class="disc-col">
-          <div class="disc-icon">🔗</div>
-          <div class="disc-head">多层机制的同时性</div>
-          <div class="disc-content-box">
-            <p class="disc-item">三种机制并非线性递进，而是通过技术中介<br><b>同时作用</b>。</p>
-            <p style="text-align:center; font-size:24px;">强制 ⟺ 模仿 ⟺ 规范</p>
-            <p class="disc-item">技术锁死与模仿渴望构成了互利共生的复合效应。</p>
-          </div>
-          <p class="disc-note">非线性的相互强化</p>
-        </div>
+      <div class="c2-final">
+        平台的权力最终依赖于社会的承认与规范的合意
       </div>
-      <div class="slide-number">18</div>
-    </div>
 
-    <!-- Slide 19: Dual Axis Line Chart -->
-    <div class="slide" id="slide-19">
-      <h2 class="slide-title">填补制度空白：经团连规则形骸化与平台扩张</h2>
-      <p class="slide-subtitle">双向博弈的终结</p>
-      <div class="chart-container">
-        <svg class="chart" viewBox="0 0 1600 650">
-          <line x1="100" y1="550" x2="1400" y2="550" stroke="var(--text-mid)" stroke-width="1" />
-          <line x1="100" y1="50" x2="100" y2="550" stroke="var(--primary)" stroke-width="2" />
-          <line x1="1400" y1="50" x2="1400" y2="550" stroke="#999" stroke-width="2" />
-          <line x1="100" y1="50" x2="1400" y2="50" stroke="var(--border)" stroke-width="1" />
-          <line x1="100" y1="300" x2="1400" y2="300" stroke="var(--border)" stroke-width="1" />
-          <text x="80" y="55" font-size="18" fill="var(--primary)" text-anchor="end">35k</text>
-          <text x="80" y="305" font-size="18" fill="var(--primary)" text-anchor="end">15k</text>
-          <text x="80" y="555" font-size="18" fill="var(--primary)" text-anchor="end">0</text>
-          <text x="1420" y="55" font-size="18" fill="#999">100%</text>
-          <text x="1420" y="305" font-size="18" fill="#999">50%</text>
-          <text x="1420" y="555" font-size="18" fill="#999">0%</text>
-          <text x="100" y="590" text-anchor="middle">2009</text>
-          <text x="500" y="590" text-anchor="middle">2013</text>
-          <text x="900" y="590" text-anchor="middle">2017</text>
-          <text x="1300" y="590" text-anchor="middle">2021</text>
-          <path d="M 100 435 L 400 335 L 700 192 L 1000 121 L 1400 121 V 550 H 100 Z" fill="var(--accent)" opacity="0.3" />
-          <polyline points="100,435 400,335 700,192 1000,121 1400,121" fill="none" stroke="var(--primary)" stroke-width="4" />
-          <polyline points="100,100 400,125 700,250 1000,400 1300,500 1400,500" fill="none" stroke="#999" stroke-width="3" stroke-dasharray="8,5" />
-          <circle cx="800" cy="300" r="6" fill="#999" />
-          <text x="815" y="315" font-size="18" fill="#666">规则开始形骸化 (2016)</text>
-          <circle cx="1000" cy="121" r="6" fill="var(--primary)" />
-          <text x="1000" y="100" font-size="18" fill="var(--primary)" text-anchor="middle">平台掲载企业数峰值 (2018)</text>
-          <circle cx="1300" cy="500" r="8" fill="var(--warning)" />
-          <text x="1300" y="540" font-size="20" font-weight="700" fill="var(--warning)" text-anchor="middle">经团连正式废止指针 (2021)</text>
-        </svg>
+      <div class="slide-number">9</div>
+      <div class="tabs-container">
+        <div class="tab">1</div><div class="tab">2</div><div class="tab">3</div><div class="tab">4</div><div class="tab">5</div><div class="tab">6</div><div class="tab">7</div><div class="tab active">8</div>
       </div>
-      <div class="slide-number">19</div>
-    </div>
-
-    <!-- Slide 20: Closing -->
-    <div class="slide" id="slide-20">
-      <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-        <h1 style="font-size:72px; color:var(--primary); margin-bottom:20px;">感谢各位倾听</h1>
-        <p style="font-size:32px; color:var(--text-mid)">Q & A | 敬请批评指正</p>
-      </div>
-      <div class="slide-number">20</div>
     </div>
 
   </div>
 
   <div class="controls">
-    <button class="btn" onclick="prevSlide()">← Prev</button>
-    <button class="btn" onclick="nextSlide()">Next →</button>
+    <button class="btn" onclick="prevSlide()">← 上一页 (Prev)</button>
+    <button class="btn" onclick="nextSlide()">下一页 (Next) →</button>
   </div>
+  
+  <button class="btn export-btn" onclick="exportPDF()">🖨️ 导出 PDF (Print)</button>
 
   <script>
     let currentSlideIndex = 0;
@@ -1115,6 +521,11 @@
     const container = document.getElementById('presentation-container');
 
     function handleResize() {
+      // 印刷時はスケーリングを無効化
+      if(window.matchMedia('print').matches) {
+        container.style.transform = 'none';
+        return;
+      }
       const windowWidth = window.innerWidth;
       const windowHeight = window.innerHeight;
       const scaleX = windowWidth / 1920;
@@ -1134,6 +545,11 @@
     function nextSlide() { showSlide(currentSlideIndex + 1); }
     function prevSlide() { showSlide(currentSlideIndex - 1); }
 
+    function exportPDF() {
+      alert("【PDF保存のヒント】\n印刷設定画面が開いたら、以下の設定を行ってください：\n\n1. 送信先：『PDFに保存』\n2. レイアウト：『横』\n3. 余白：『なし』\n4. オプション：『背景のグラフィック』にチェック\n\nこれにより、ピクセルパーフェクトなフルスクリーンPDFが作成されます。");
+      window.print();
+    }
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
         nextSlide();
@@ -1143,6 +559,8 @@
     });
 
     window.addEventListener('resize', handleResize);
+    window.matchMedia('print').addEventListener('change', handleResize);
+    
     window.onload = () => {
       handleResize();
       showSlide(0);
